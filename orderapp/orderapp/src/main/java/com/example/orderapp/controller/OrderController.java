@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.orderapp.dto.OrdersDto;
 import com.example.orderapp.entity.Orders;
 import com.example.orderapp.service.OrderService;
 
@@ -27,8 +28,8 @@ public class OrderController {
 		return orderService.fetchOrders();
 	}
 	
-	@GetMapping("/fetchorderbyid/{id}")
-	public Orders fetchOrderById(@PathVariable Long id) {
+	@GetMapping("/getorderbyid/{id}")
+	public OrdersDto fetchOrderById(@PathVariable Long id) {
 		
 		return orderService.findById(id);
 	}

@@ -2,35 +2,61 @@ package com.example.usersapp.service;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
-import com.example.usersapp.entity.Usersapp;
+import com.example.usersapp.dto.OrdersDto;
+import com.example.usersapp.dto.UsersDto;
+import com.example.usersapp.entity.Users;
 import com.example.usersapp.repository.UsersappRepository;
 
 @Service
 public class UsersappServiceImpl implements UsersappService{
 
-	@Autowired
+    @Autowired
 	UsersappRepository usersappRepository;
+    
+    @Autowired
+    WebClient webClient;
+	
+	private final ModelMapper modelMapper;
+    public UsersappServiceImpl(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+	
 	@Override
-	public List<Usersapp> fetchUserList() {
+	public List<Users> fetchUserList() {
 		
-		List<Usersapp> list = usersappRepository.findAll();
-		System.out.println(list);
-		System.out.println(list.get(0).getUserName());
-		
+		List<Users> list = usersappRepository.findAll();
+				
 		return list;
 	}
 	@Override
-	public Usersapp saveOrUpdate(Usersapp user) {
+	public Users saveOrUpdate(Users user) {
 		// TODO Auto-generated method stub
 		return usersappRepository.save(user);
 	}
+	
 	@Override
-	public Usersapp fetchUserDetailsById(Long id) {
+	public UsersDto getuserbyid(Long id) {
+		System.out.println("sfsdf");
 		// TODO Auto-generated method stub
-		return usersappRepository.findById(id).get();
+		Users usersapp = usersappRepository.findById(id).get();
+		
+		UsersDto usersDto = modelMapper.map(usersapp, UsersDto.class);
+		
+		OrdersDto ordersDto = webClient
+				.get()
+				.uri("http://localhost:8085/order/getorderbyid/" +id)
+				.retrieve()
+				.bodyToMono(OrdersDto.class)
+				.block();
+				
+		usersDto.setOrdersDto(ordersDto);
+		
+		return usersDto;
 	}
 	@Override
 	public void deleteUser(Long id) {

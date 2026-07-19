@@ -2,15 +2,16 @@ package com.example.usersapp.service;
 
 import java.util.List;
 
-import com.example.usersapp.entity.Usersapp;
+import com.example.usersapp.dto.UsersDto;
+import com.example.usersapp.entity.Users;
 
 public interface UsersappService {
 
-	List<Usersapp> fetchUserList();
+	List<Users> fetchUserList();
 	
-	public Usersapp saveOrUpdate(Usersapp user);
+	public Users saveOrUpdate(Users user);
 	
-	public Usersapp fetchUserDetailsById(Long id);
+	public UsersDto getuserbyid(Long id);
 	
 	public void deleteUser(Long id);
 }

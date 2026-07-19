@@ -1,17 +1,13 @@
 package com.example.productapp.dto;
 
-import java.util.Objects;
-
 import lombok.Data;
 
 
 @Data
 public class ProductDto {
 	
-	private Long productId;
-	private String productName;
-	private Integer productPrice;
+	private Long id;
+	private String name;
+	private Integer price;
 	private Integer stockQuantity;
-	private Long userId;	
-
 }

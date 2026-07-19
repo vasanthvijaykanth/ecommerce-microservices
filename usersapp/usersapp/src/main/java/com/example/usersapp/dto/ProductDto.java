@@ -1,6 +1,4 @@
-package com.example.cartapp.dto;
-
-import java.util.Objects;
+package com.example.usersapp.dto;
 
 import lombok.Data;
 

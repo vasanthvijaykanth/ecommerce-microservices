@@ -29,7 +29,7 @@ public class CartController {
 		return cartService.saveOrUpdateCart(cart);
 	}
 	
-	@GetMapping("/get/{fetchcartbyid}")
+	@GetMapping("/get/{id}")
 	public CartDto getById(@PathVariable Long id) {
 		
 		return cartService.fetchCartById(id);

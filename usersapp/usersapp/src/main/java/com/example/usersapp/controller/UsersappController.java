@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.usersapp.entity.Usersapp;
+import com.example.usersapp.dto.UsersDto;
+import com.example.usersapp.entity.Users;
 import com.example.usersapp.service.UsersappService;
 
 @RestController 
@@ -29,22 +30,22 @@ public class UsersappController {
 	}
 	
 	@GetMapping("/userList")
-	public List<Usersapp> fetchUserList(){
+	public List<Users> fetchUserList(){
 		
-		List<Usersapp> response = usersappService.fetchUserList();
+		List<Users> response = usersappService.fetchUserList();
 		return response;
 	}
 	
 	@PostMapping("/saveOrUpdate")
-	public Usersapp saveOrUpdate(@RequestBody Usersapp user) {
+	public Users saveOrUpdate(@RequestBody Users user) {
 		
 		return usersappService.saveOrUpdate(user);
 	}
 	
-	@GetMapping("/finduserbyid/{id}")
-	public Usersapp findUserById(@PathVariable Long id) {
+	@GetMapping("/getuserbyid/{id}")
+	public UsersDto findUserById(@PathVariable Long id) {
 		
-		return usersappService.fetchUserDetailsById(id);
+		return usersappService.getuserbyid(id);
 	}
 	
 	@DeleteMapping("/deleteuser/{id}")

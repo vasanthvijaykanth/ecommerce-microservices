@@ -40,7 +40,7 @@ public class ProductController {
 		return productService.getById(id);
 	}
 	
-	@GetMapping("deleteproduct/{id}")
+	@GetMapping("/deleteproduct/{id}")
 	public void deleteProduct(@PathVariable Long id) {
 		productService.delete(id);
 	}

@@ -1,10 +1,10 @@
 package com.example.cartapp.service;
 
-import java.util.List;
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.cartapp.dto.CartDto;
 import com.example.cartapp.dto.ProductDto;
@@ -16,6 +16,15 @@ public class CartServiceImpl implements CartService {
 
 	@Autowired
 	CartRepository cartRepository;
+	
+	@Autowired
+	WebClient webClient;
+	
+	private final ModelMapper modelMapper;
+	public CartServiceImpl(ModelMapper modelMapper) {
+		
+		this.modelMapper = modelMapper;
+	}
 
 	@Override
 	public Cart saveOrUpdateCart(@RequestBody Cart cart) {
@@ -25,14 +34,18 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public CartDto fetchCartById(Long id) {
-		// TODO Auto-generated method stub
+	
 		Cart cart = cartRepository.findById(id).get();
-	//	ProductDto product= restTemplate.gethjhg(cart.getId()) new ProductDto();  //
-		ProductDto product=  new ProductDto();
-		CartDto cartDto= modelMapper.map(cart,CartDto.java);
-		cartDto.setProduct(product);
 		
-		 
+		ProductDto products = webClient
+				.get()
+				.uri("http://localhost:8083/product/getbyid/" + id)
+				.retrieve()
+				.bodyToMono(ProductDto.class)
+				.block();
+		
+		CartDto cartDto= modelMapper.map(cart, CartDto.class);
+		cartDto.setProductDto(products); 
 		 return cartDto;
 	}
 
