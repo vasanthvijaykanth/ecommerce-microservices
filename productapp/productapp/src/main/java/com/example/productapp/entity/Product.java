@@ -31,7 +31,7 @@ public class Product {
 	@Column(name = "quantity")
 	private Integer quantity;
 	
-	@Column(name ="user_id")
-	private Long userId;
+	@Column(name ="cart_id")
+	private Long cartId;
 	
 }

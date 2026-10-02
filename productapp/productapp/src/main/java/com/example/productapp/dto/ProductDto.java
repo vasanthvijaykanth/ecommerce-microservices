@@ -6,8 +6,9 @@ import lombok.Data;
 @Data
 public class ProductDto {
 	
-	private Long id;
+	private Long productId;
 	private String name;
 	private Integer price;
-	private Integer stockQuantity;
+	private Integer quantity;
+	private Long cartId;
 }
