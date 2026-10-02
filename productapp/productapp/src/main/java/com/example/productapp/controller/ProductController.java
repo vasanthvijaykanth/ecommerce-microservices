@@ -2,13 +2,9 @@ package com.example.productapp.controller;
 
 import java.util.List;
 
+import com.example.productapp.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.productapp.entity.Product;
 import com.example.productapp.service.ProductService;
@@ -22,9 +18,9 @@ public class ProductController {
 	ProductService productService;
 	
 	@GetMapping("/getallproduct")
-	public List<Product> fetchAllProduct() {
+	public List<Product> getAllProduct() {
 		
-		List<Product> response = productService.fetchAllProduct(); 
+		List<Product> response = productService.getAllProduct();
 		
 		return response;
 	}
@@ -35,8 +31,8 @@ public class ProductController {
 		return productService.saveOrUpdateProduct(product);
 	}
 	
-	@GetMapping("/getbyid/{id}")
-	public Product getbyid(@PathVariable Long id) {
+	@GetMapping("/getbyid")
+	public List<ProductDto> getbyid(@RequestParam List<Long> id) {
 		return productService.getById(id);
 	}
 	

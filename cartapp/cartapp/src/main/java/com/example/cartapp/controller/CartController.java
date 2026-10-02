@@ -30,13 +30,14 @@ public class CartController {
 	}
 	
 	@GetMapping("/get/{id}")
-	public CartDto getById(@PathVariable Long id) {
+	public List<CartDto> getById(@PathVariable List<Long> id) {
 		
 		return cartService.fetchCartById(id);
 	}
 	
 	@GetMapping("/fetchcartbyid")
-	public CartDto getById(@RequestParam(required=false) Long id,@RequestParam(required=false) Long ids) {
+	//public CartDto getById(@RequestParam(required=false) Long id,@RequestParam(required=false) Long ids) {
+	public List<CartDto> getByCartId(@RequestParam List<Long> id){
 		
 		return cartService.fetchCartById(id);
 	}
